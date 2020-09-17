@@ -12,7 +12,7 @@ public class User {
 
     private String country;
 
-    private String Teamname;
+    private String teamname;
 
     private Integer inteam;
 
