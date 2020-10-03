@@ -1,10 +1,10 @@
-package com.dozer.sleepcat;
+package com.example.mybatistest.demo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SleepcatApplicationTests {
+class DemoApplicationTests {
 
     @Test
     void contextLoads() {
