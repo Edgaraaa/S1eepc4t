@@ -1,17 +1,20 @@
 package com.example.mybatistest.demo.entity;
 
 public class User {
-    private Integer id;
+    private String uid;
     private String userName;
     private String passWord;
     private String realName;
+    private String teamName;
+    private String teamId;
+    private Integer isAdmin;
 
-    public Integer getId() {
-        return id;
+    public String getUid() {
+        return uid;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUid(String id) {
+        this.uid = id;
     }
 
     public String getUserName() {
@@ -38,10 +41,29 @@ public class User {
         this.realName = realName;
     }
 
+    public void setTeamName(String teamName) {
+        this.teamName=teamName;
+    }
+    public String getTeamName() {
+        return teamName;
+    }
+    public void setTeamId(String teamId) {
+        this.teamId=teamId;
+    }
+    public String getTeamId() {
+        return teamId;
+    }
+    public void setIsAdmin(Integer isAdmin) {
+        this.isAdmin=isAdmin;
+    }
+    public Integer getIsAdmin() {
+        return isAdmin;
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "uid=" + uid +
                 ", userName='" + userName + '\'' +
                 ", passWord='" + passWord + '\'' +
                 ", realName='" + realName + '\'' +

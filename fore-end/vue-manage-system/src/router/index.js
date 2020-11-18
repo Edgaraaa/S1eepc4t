@@ -29,12 +29,27 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "rank" */ '../components/page/Rank.vue'),
                     meta: { title: '比赛排名' }
                 },
+                {
+                    path: '/addchallenge',
+                    component: () => import(/* webpackChunkName: "addchallenge" */ '../components/page/AddChallengeAdmin.vue'),
+                    meta: { title: '比赛排名' }
+                },
+                {
+                    path: '/listchallenge',
+                    component: () => import(/* webpackChunkName: "addchallenge" */ '../components/page/ListChallengeAdmin.vue'),
+                    meta: { title: '所有赛题' }
+                },
             ]
         },
         {
             path: '/login',
             component: () => import(/* webpackChunkName: "login" */ '../components/page/Login.vue'),
             meta: { title: '登录' }
+        },
+        {
+            path: '/register',
+            component: () => import(/* webpackChunkName: "register" */ '../components/page/Register.vue'),
+            meta: { title: '注册' }
         },
         {
             path: '*',

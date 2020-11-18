@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatistest.demo.mapper.ChallengeMapper">
+    <resultMap id="BaseResultMap" type="com.example.mybatistest.demo.entity.Challenge">
+        <result column="cid" jdbcType="VARCHAR" property="cid" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="describution" jdbcType="VARCHAR" property="describution" />
+        <result column="flag" jdbcType="VARCHAR" property="flag" />
+        <result column="challengeType" jdbcType="VARCHAR" property="challengeType" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        cid,title,describution,flag,challengeType
+    </sql>
+    <select id="selectById" resultType="com.example.mybatistest.demo.entity.Challenge">
+        select * from challenge where cid= #{cid}
+    </select>
+    <select id="selectByChallengeTitle" resultType="com.example.mybatistest.demo.entity.Challenge">
+        select * from challenge where title like #{title}
+    </select>
+
+    <insert id="addChallenge" parameterType="com.example.mybatistest.demo.entity.Challenge">
+        insert into challenge (cid,title,describution,flag,challengeType) VALUES (#{cid},#{title},#{describution},#{flag},#{challengeType})
+    </insert>
+
+    <select id="getAllChallenge" resultMap="BaseResultMap" >
+        select 
+         <include refid="Base_Column_List"></include>
+         from challenge
+    </select>
+</mapper>
