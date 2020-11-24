@@ -51,7 +51,9 @@
     </div>
 </template>
 <script>
+import axios from 'axios';
 import bus from '../common/bus';
+import GLOBAL from '../../api/global_var'
 export default {
     data() {
         return {
@@ -70,9 +72,14 @@ export default {
     methods: {
         // 用户名下拉菜单选择事件
         handleCommand(command) {
+            var that = this;
             if (command == 'loginout') {
                 localStorage.removeItem('ms_username');
-                this.$router.push('/login');
+                axios.get('http://127.0.0.1:8080/logout?token='+GLOBAL.token).then(function(response) {
+                    console.log(response.data)
+                    that.$router.push('/login');
+                });
+                
             }
         },
         // 侧边栏折叠

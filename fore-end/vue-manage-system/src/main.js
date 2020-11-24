@@ -9,7 +9,10 @@ import 'element-ui/lib/theme-chalk/index.css'; // 默认主题
 import './assets/css/icon.css';
 import './components/common/directives';
 import 'babel-polyfill';
-
+import cookies from 'vue-cookies'
+import token from './api/global_var'
+Vue.use(token)
+Vue.prototype.$cookies = cookies;  //配置时候prototype.$这里的名字自己定义不是固定是cookies
 Vue.config.productionTip = false;
 Vue.use(VueI18n);
 Vue.use(ElementUI, {

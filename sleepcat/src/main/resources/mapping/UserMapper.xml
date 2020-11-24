@@ -15,6 +15,9 @@
     <select id="Sel" resultType="com.example.mybatistest.demo.entity.User">
         select * from user where uid = #{id}
     </select>
+    <select id="selectByName" resultType="com.example.mybatistest.demo.entity.User">
+        select * from user where userName = #{name}
+    </select>
     <select id="selectByUserNameAndPassword" resultType="com.example.mybatistest.demo.entity.User">
         select * from user where userName = #{username} and passWord = #{password}
     </select>

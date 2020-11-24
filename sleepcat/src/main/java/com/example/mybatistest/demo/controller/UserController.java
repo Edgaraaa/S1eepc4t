@@ -1,6 +1,9 @@
 package com.example.mybatistest.demo.controller;
 
+import com.example.mybatistest.demo.entity.RedisUtil;
+import com.example.mybatistest.demo.entity.Team;
 import com.example.mybatistest.demo.entity.User;
+import com.example.mybatistest.demo.service.TeamService;
 import com.example.mybatistest.demo.service.UserService;
 import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +15,10 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private TeamService teamService;
+    @Autowired
+    private RedisUtil redisUtil;
     @RequestMapping("getUser/{id}")
     public User GetUser(@PathVariable String id){
         return userService.Sel(id);
@@ -43,6 +49,20 @@ public class UserController {
 
         userService.register(uid,username,password,email,teamName,teamId,isAdmin);
         return "注册成功";
+    }
+    @PostMapping("/getUserInfo")
+    public String getUserInfo(@RequestParam("token") String token) {
+        String name= (String) redisUtil.get(token);
+        User user=userService.selectByName(name);
+        String username=user.getUserName();
+        Team team=teamService.selectTeamByID(user.getTeamId());
+        String teamname=team.getTeamName();
+        Integer score=team.getScore();
+        return "{" +
+                "\"username\":\""+username+"\"," +
+                "\"teamname\":\""+teamname+"\"," +
+                "\"score\":"+score+"" +
+                "}";
     }
 
 }

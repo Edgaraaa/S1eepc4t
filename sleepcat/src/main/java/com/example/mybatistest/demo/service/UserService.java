@@ -21,4 +21,7 @@ public class UserService {
     public int joinTeam(String tid,String uid){
         return userMapper.joinTeam(tid,uid);
     }
+    public User selectByName(String name){
+        return userMapper.selectByName(name);
+    }
 }

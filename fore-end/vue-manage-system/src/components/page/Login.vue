@@ -32,6 +32,7 @@
 
 <script>
 import axios from 'axios';
+import GLOBAL from '../../api/global_var'
 export default {
     data: function() {
         return {
@@ -49,33 +50,18 @@ export default {
         login() {
             var that = this;
             let date = new FormData();
-            date.append("username",this.param.username);
+            date.append("loginName",this.param.username);
             date.append("password",this.param.password);
-            axios.post('http://127.0.0.1:8080/testBoot/getUser',date).then(function(response) {
-                console.log(response)
-                if (response.data["userName"]!="None") {
+            axios.post('http://127.0.0.1:8080/login',date).then(function(response) {
+                console.log(response.data)
+                if (response.data["code"]==0) {
+                    GLOBAL.token=response.data["date"]
                     that.$message.success('登录成功');
                     localStorage.setItem('ms_username', that.param.username);
                     that.$router.push('/');
                 } else {
                     that.$message.error('请输入正确账号和密码');
                     console.log('error submit!!');
-                }
-            });
-        },
-        submitForm() {
-            
-            this.$refs.login.validate(valid => {
-                valid=this.login(this.username,this.password)
-                console.log(username)
-                if (valid) {
-                    this.$message.success('登录成功');
-                    localStorage.setItem('ms_username', this.param.username);
-                    this.$router.push('/');
-                } else {
-                    this.$message.error('请输入账号和密码');
-                    console.log('error submit!!');
-                    return false;
                 }
             });
         },

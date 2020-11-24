@@ -6,13 +6,13 @@
                     <div class="user-info">
                         <img src="../../assets/img/img.jpg" class="user-avator" alt />
                         <div class="user-info-cont">
-                            <div class="user-info-name">{{name}}</div>
-                            <div>{{role}}</div>
+                            <div class="user-info-name">{{this.tableDate.username}}</div>
+                            <el-tag>{{role}}</el-tag>
                         </div>
                     </div>
                     <div class="user-info-list">
                         所属战队  ：
-                        <span>Dozer</span>
+                        <span>{{this.tableDate.teamname}}</span>
                     </div>
                     <div class="user-info-list">
                         上次登录时间：
@@ -42,7 +42,7 @@
                             <div class="grid-content grid-con-1">
                                 <i class="el-icon-trophy grid-con-icon"></i>
                                 <div class="grid-cont-right">
-                                    <div class="grid-num">1234</div>
+                                    <div class="grid-num">{{this.tableDate.score}}</div>
                                     <div>当前分数</div>
                                 </div>
                             </div>
@@ -106,18 +106,28 @@
 <script>
 import Schart from 'vue-schart';
 import bus from '../common/bus';
+import GLOBAL from '../../api/global_var'
+import axios from 'axios';
 export default {
     name: 'dashboard',
+    created(){
+        let date = new FormData();
+        var that=this
+        date.append('token',GLOBAL.token);
+        axios.post('http://127.0.0.1:8080/testBoot/getUserInfo',date).then(function(response){
+            that.tableDate=response.data
+        });
+    },
     data() {
         return {
-            name: localStorage.getItem('ms_username'),
+            tableDate:null,
             todoList: [
                 {
                     title: '比赛平台前端已经在写了',
                     status: false
                 },
                 {
-                    title: 'Dozer被取消比赛资格',
+                    title: '',
                     status: false
                 },
                 {
@@ -137,36 +147,6 @@ export default {
                     status: true
                 }
             ],
-            data: [
-                {
-                    name: '2018/09/04',
-                    value: 1083
-                },
-                {
-                    name: '2018/09/05',
-                    value: 941
-                },
-                {
-                    name: '2018/09/06',
-                    value: 1139
-                },
-                {
-                    name: '2018/09/07',
-                    value: 816
-                },
-                {
-                    name: '2018/09/08',
-                    value: 327
-                },
-                {
-                    name: '2018/09/09',
-                    value: 228
-                },
-                {
-                    name: '2018/09/10',
-                    value: 1065
-                }
-            ]
         };
     },
     components: {
@@ -174,7 +154,7 @@ export default {
     },
     computed: {
         role() {
-            return this.name === 'admin' ? '超级管理员' : '普通用户';
+            return this.tableDate.username === 'admin' ? '超级管理员' : '普通用户';
         }
     },
     // created() {
