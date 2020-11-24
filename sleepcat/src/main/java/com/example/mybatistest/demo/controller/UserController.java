@@ -44,4 +44,5 @@ public class UserController {
         userService.register(uid,username,password,email,teamName,teamId,isAdmin);
         return "注册成功";
     }
+
 }

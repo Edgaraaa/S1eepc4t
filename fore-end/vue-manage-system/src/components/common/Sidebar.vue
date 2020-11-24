@@ -70,7 +70,17 @@ export default {
                     icon: 'el-icon-s-custom',
                     index: 'rank',
                     title: '比赛排名'
-                }
+                },
+                {
+                    icon: 'el-icon-s-custom',
+                    index: 'submitflag',
+                    title: '提交flag'
+                },
+                {
+                    icon: 'el-icon-s-custom',
+                    index: 'jointeam',
+                    title: '加入或者创建团队'
+                },
             ]
         };
     },

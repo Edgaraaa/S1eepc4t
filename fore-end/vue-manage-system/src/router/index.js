@@ -32,12 +32,22 @@ export default new Router({
                 {
                     path: '/addchallenge',
                     component: () => import(/* webpackChunkName: "addchallenge" */ '../components/page/AddChallengeAdmin.vue'),
-                    meta: { title: '比赛排名' }
+                    meta: { title: '添加赛题' }
                 },
                 {
                     path: '/listchallenge',
-                    component: () => import(/* webpackChunkName: "addchallenge" */ '../components/page/ListChallengeAdmin.vue'),
+                    component: () => import(/* webpackChunkName: "listchallenge" */ '../components/page/ListChallengeAdmin.vue'),
                     meta: { title: '所有赛题' }
+                },
+                {
+                    path: '/submitflag',
+                    component: () => import(/* webpackChunkName: "submitflag" */ '../components/page/SubmitFlag.vue'),
+                    meta: { title: '提交flag' }
+                },
+                {
+                    path: '/jointeam',
+                    component: () => import(/* webpackChunkName: "jointeam" */ '../components/page/CreateOrJoinTeam.vue'),
+                    meta: { title: '加入战队或者创建战队' }
                 },
             ]
         },

@@ -18,6 +18,9 @@
     <select id="selectByUserNameAndPassword" resultType="com.example.mybatistest.demo.entity.User">
         select * from user where userName = #{username} and passWord = #{password}
     </select>
+    <update id="joinTeam" parameterType="com.example.mybatistest.demo.entity.User">
+        update user set teamId=#{tid} where uid=#{uid}
+    </update>
     <insert id="Register" parameterType="com.example.mybatistest.demo.entity.User" >
         insert into user
         <trim prefix="(" suffix=")" suffixOverrides="," >

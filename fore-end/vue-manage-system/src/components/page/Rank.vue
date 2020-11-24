@@ -12,24 +12,20 @@
         width="50">
         </el-table-column>
         <el-table-column
-        label="Name"
-        prop="name">
+        label="tid"
+        prop="tid">
         </el-table-column>
         <el-table-column
-        label="Team"
-        prop="team">
+        label="Team Name"
+        prop="teamName">
         </el-table-column>
         <el-table-column
-        label="Score"
+        label="队长id"
+        prop="uid">
+        </el-table-column>
+        <el-table-column
+        label="score"
         prop="score">
-        </el-table-column>
-        <el-table-column
-        label="Solves"
-        prop="solves">
-        </el-table-column>
-        <el-table-column
-        label="Time"
-        prop="date">
         </el-table-column>
         <el-table-column
         align="right">
@@ -44,44 +40,45 @@
 </template>
 
 <script>
+import axios from 'axios';
   export default {
+    created() {
+      this.getDate();
+    },
     data() {
       return {
-        tableData: [{
-          date: '2016-05-02',
-          team:"Dozer",
-          score:123,
-          solves:3,
-          name: 'Edgar',
-        }, {
-          date: '2016-05-04',
-          name: 'Andy',
-          team:"Dozer",
-          score:123,
-          solves:3
-        }, {
-          date: '2016-05-01',
-          name: 'Faker',
-          team:"Dozer",
-          score:123,
-          solves:3
-        }, {
-          date: '2016-05-03',
-          name: 'Joker',
-          team:"Dozer",
-          score:123,
-          solves:3
-        }],
+        id:"",
+        one: {},
+        tableData: [],
         search: ''
       }
     },
     methods: {
+      getDate(){
+        var that=this;
+        axios.get('http://localhost:8080/api/rank/getRank').then(function(response) {
+        that.tableData=response.data;
+      });
+      },
         setCurrent(row) {
         this.$refs.singleTable.setCurrentRow(row);
       },
       handleCurrentChange(val) {
         this.currentRow = val;
+      },
+      timer() {
+        return setTimeout(()=>{
+          this.getDate()
+        },5000)
       }
     },
+    watch: {
+      tableData() {
+      this.timer() 
+      }
+    },
+    destroyed() {
+  clearTimeout(this.timer)
+    }
   }
 </script>

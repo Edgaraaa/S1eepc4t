@@ -10,7 +10,7 @@
       width="180">
     </el-table-column>
     <el-table-column
-      prop="title"
+      prop="titles"
       label="赛题名称"
       width="150">
     </el-table-column>
@@ -47,7 +47,7 @@
     created(){
         var that = this;
         axios.get('http://127.0.0.1:8080/api/challenge/getAllChallenge').then(function(response) {
-            console.log(response.data);
+            console.log(response);
             that.tableData=response.data;
         });
     },

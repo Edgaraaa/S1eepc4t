@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatistest.demo.mapper.TeamMapper">
+    <resultMap id="BaseResultMap" type="com.example.mybatistest.demo.entity.Team">
+        <result column="tid" jdbcType="VARCHAR" property="tid" />
+        <result column="teamName" jdbcType="VARCHAR" property="teamName" />
+        <result column="uid"  jdbcType="VARCHAR" property="uid" />
+        <result column="score" jdbcType="INTEGER" property="score" />
+    </resultMap>
+    <sql id="Team_info" >
+        tid,teamName,uid,score
+    </sql>
+    <select id="selectTeamByID" resultType="com.example.mybatistest.demo.entity.Team">
+        select
+        <include refid="Team_info"></include>
+        from team where tid=#{tid}
+    </select>
+    <select id="getRank" resultMap="BaseResultMap">
+        select * from team order by score desc
+    </select>
+    <update id="updateScore" parameterType="com.example.mybatistest.demo.entity.Team">
+        update team set score = #{score} where tid=#{tid}
+    </update>
+</mapper>

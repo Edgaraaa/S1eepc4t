@@ -1,88 +1,117 @@
 <template>
-    <el-row>
-        <div class="menu">
-            <el-tabs :tab-position="tabPosition" style="height: 200px;" class="horizontal-center">
-                <el-tab-pane label="WEB"></el-tab-pane>
-                <el-tab-pane label="RE"></el-tab-pane>
-                <el-tab-pane label="PWN"></el-tab-pane>
-                <el-tab-pane label="MISC"></el-tab-pane>
-                <el-tab-pane label="CRYPTO"></el-tab-pane>
-            </el-tabs>
-        </div>
-        <div class="menu">
-            <el-col :span="4" v-for="(o, index) in 3" :key="o" :offset="index > 0 ? 2 : 0">
-                <el-card :body-style="{ padding: '0px' }">
-                <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
-                <div style="padding: 10px;">
-                    <span>好吃的汉堡</span>
-                    <div class="bottom clearfix">
-                    <time class="time">{{ currentDate }}</time>
-                    <el-button type="text" class="button">解题</el-button>
-                    </div>
-                </div>
-                </el-card>
-                <br>
-            </el-col>
-        </div>
-    </el-row>
+      <el-table
+        border
+        ref="singleTable"
+        :data="tableData"
+        highlight-current-row
+        @current-change="handleCurrentChange"
+        style="width: 100%">
+        <el-table-column
+          type="index"
+          width="80">
+          
+        </el-table-column>
+        <el-table-column
+          property="cid"
+          label="题目ID"
+          width="100">
+        </el-table-column>
+        <el-table-column
+          property="titles"
+          label="题目名称"
+          width="800">
+          <template slot-scope="{row}">
+            <el-button type="text" @click="open(row.describution,row.titles)">{{ row.titles }}</el-button>
+
+          </template>
+        </el-table-column>
+        <el-table-column
+          property="challengeType"
+          label="题目类型"
+          width="250">
+          <template slot-scope="{row}">
+            <el-tag>{{ row.challengeType }}</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column
+          property="score"
+          label="分值"
+          width="100">
+        </el-table-column>
+        <el-table-column
+          property="deal"
+          label="解决人数"
+          width="100">
+        </el-table-column>
+        
+      </el-table>
+      
+      
 </template>
 
 <style>
-  .time {
-    font-size: 13px;
-    color: #999;
-  }
-  .menu {
-      display: inline-block;
-  }
-  .bottom {
-    margin-top: 13px;
-    line-height: 12px;
-  }
 
-  .button {
-    padding: 0;
-    float: right;
-  }
-
-  .image {
-    width: 100%;
-    display: block;
-  }
-
-  .clearfix:before,
-  .clearfix:after {
-      display: table;
-      content: "";
-  }
-  
-  .clearfix:after {
-      clear: both
-  }
-  .center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.horizontal-center {
-  display: flex;
-  justify-content: center;
-}
-
-.vertical-center {
-  display: flex;
-  align-items: center;
-}
 </style>
 
+
 <script>
+import axios from 'axios';
 export default {
+  created(){
+    var that=this;
+    axios.get('http://127.0.0.1:8080/api/challenge//getAllChallenge').then(function(response){
+      that.tableData=response.data;
+    });
+  },
   data() {
     return {
-      currentDate: new Date(),
-      tabPosition: 'left',
+      tableData:[{}],
+      dialogVisible: false
     };
+  },
+  methods: {
+        deleteRow(index, rows) {
+        rows.splice(index, 1);
+      },
+       handleClose(done) {
+        this.$confirm('确认关闭？')
+          .then(_ => {
+            done();
+          })
+          .catch(_ => {});
+      },
+      open(str1,str2) {
+        const h = this.$createElement;
+        this.$msgbox({
+          title: str2,
+          message: h('p', null, [
+            h('span', null, '内容可以是 '),
+            h('i', { style: 'color: teal' }, str1)
+          ]),
+          showCancelButton: true,
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          beforeClose: (action, instance, done) => {
+            if (action === 'confirm') {
+              instance.confirmButtonLoading = true;
+              instance.confirmButtonText = '执行中...';
+              setTimeout(() => {
+                done();
+                setTimeout(() => {
+                  instance.confirmButtonLoading = false;
+                }, 300);
+              }, 3000);
+            } else {
+              done();
+            }
+          }
+        }).then(action => {
+          this.$message({
+            type: 'info',
+            message: 'action: ' + action
+          });
+        });
+      }
   }
 }
 </script>

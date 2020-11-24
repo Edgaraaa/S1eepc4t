@@ -18,4 +18,7 @@ public class UserService {
     public int register(String uid,String userName,String passWord,String realName,String teamName,String teamId,Integer isAdmin){
         return userMapper.Register(uid,userName,passWord,realName,teamName,teamId,isAdmin);
     }
+    public int joinTeam(String tid,String uid){
+        return userMapper.joinTeam(tid,uid);
+    }
 }

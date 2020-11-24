@@ -11,7 +11,9 @@ import java.util.List;
 public interface ChallengeMapper {
     Challenge selectById(String cid);
     Challenge selectByChallengeTitle(String title);
-    int addChallenge(String cid, String title, String describution, String flag, String challengeType);
+    int addChallenge(String cid, String titles, String describution,
+                     String flag, String challengeType,String mode,Integer score);
     List<Challenge> getAllChallenge();
+    Challenge selectByFlag(String flag,String cid);
 
 }

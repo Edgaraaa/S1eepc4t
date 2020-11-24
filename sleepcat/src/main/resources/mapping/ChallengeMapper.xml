@@ -3,13 +3,16 @@
 <mapper namespace="com.example.mybatistest.demo.mapper.ChallengeMapper">
     <resultMap id="BaseResultMap" type="com.example.mybatistest.demo.entity.Challenge">
         <result column="cid" jdbcType="VARCHAR" property="cid" />
-        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="titles" jdbcType="VARCHAR" property="title" />
         <result column="describution" jdbcType="VARCHAR" property="describution" />
         <result column="flag" jdbcType="VARCHAR" property="flag" />
         <result column="challengeType" jdbcType="VARCHAR" property="challengeType" />
+        <result column="mode" jdbcType="VARCHAR" property="mode" />
+        <result column="score" jdbcType="INTEGER" property="score" />
+        <result column="deal" jdbcType="INTEGER" property="deal" />
     </resultMap>
-    <sql id="Base_Column_List" >
-        cid,title,describution,flag,challengeType
+    <sql id="Challenge_info_to_user" >
+        cid,titles,describution,challengeType,score,deal
     </sql>
     <select id="selectById" resultType="com.example.mybatistest.demo.entity.Challenge">
         select * from challenge where cid= #{cid}
@@ -19,12 +22,15 @@
     </select>
 
     <insert id="addChallenge" parameterType="com.example.mybatistest.demo.entity.Challenge">
-        insert into challenge (cid,title,describution,flag,challengeType) VALUES (#{cid},#{title},#{describution},#{flag},#{challengeType})
+        insert into challenge (cid,titles,describution,flag,challengeType,mode,score,deal) VALUES (#{cid},#{titles},#{describution},#{flag},#{challengeType},#{mode},#{score},0)
     </insert>
 
     <select id="getAllChallenge" resultMap="BaseResultMap" >
         select 
-         <include refid="Base_Column_List"></include>
+         <include refid="Challenge_info_to_user"></include>
          from challenge
+    </select>
+    <select id="selectByFlag" resultType="com.example.mybatistest.demo.entity.Challenge">
+        select * from challenge where flag = #{flag} and cid = #{cid}
     </select>
 </mapper>

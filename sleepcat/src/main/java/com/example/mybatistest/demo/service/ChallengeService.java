@@ -16,14 +16,17 @@ public class ChallengeService {
         return challengeMapper.selectById(cid);
     }
 
-    public Challenge selectByChallengeTitle(String title){
-        return challengeMapper.selectByChallengeTitle(title);
+    public Challenge selectByChallengeTitle(String titles){
+        return challengeMapper.selectByChallengeTitle(titles);
     }
 
-    public int addChallenge(String cid, String title, String describution, String flag, String challengeType){
-        return challengeMapper.addChallenge(cid,title,describution,flag,challengeType);
+    public int addChallenge(String cid, String titles, String describution, String flag, String challengeType,String mode,Integer score){
+        return challengeMapper.addChallenge(cid,titles,describution,flag,challengeType,mode,score);
     }
     public List<Challenge> getAllChallenge() {
         return challengeMapper.getAllChallenge();
+    }
+    public Challenge selectByFlag(String flag,String cid) {
+        return challengeMapper.selectByFlag(flag,cid);
     }
 }
