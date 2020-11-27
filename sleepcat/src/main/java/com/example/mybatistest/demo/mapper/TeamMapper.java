@@ -11,5 +11,4 @@ public interface TeamMapper {
     Team selectTeamByID(String tid);
     List<Team> getRank();
     Integer updateScore(String tid,Integer score);
-
 }

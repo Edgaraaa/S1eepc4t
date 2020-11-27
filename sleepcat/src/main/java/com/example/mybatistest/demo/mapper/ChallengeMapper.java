@@ -15,5 +15,6 @@ public interface ChallengeMapper {
                      String flag, String challengeType,String mode,Integer score);
     List<Challenge> getAllChallenge();
     Challenge selectByFlag(String flag,String cid);
+    int updateByID(String cid,String titles,String describution,String flag,String challengeType,String mode,Integer score,Integer deal);
 
 }

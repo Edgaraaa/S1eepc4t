@@ -3,7 +3,9 @@ package com.example.mybatistest.demo.controller;
 import com.example.mybatistest.demo.entity.RedisUtil;
 import com.example.mybatistest.demo.entity.Team;
 import com.example.mybatistest.demo.entity.User;
+import com.example.mybatistest.demo.entity.UserInfo;
 import com.example.mybatistest.demo.service.TeamService;
+import com.example.mybatistest.demo.service.UserInfoService;
 import com.example.mybatistest.demo.service.UserService;
 import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ public class UserController {
     private UserService userService;
     @Autowired
     private TeamService teamService;
+    @Autowired
+    private UserInfoService userInfoService;
     @Autowired
     private RedisUtil redisUtil;
     @RequestMapping("getUser/{id}")
@@ -43,8 +47,8 @@ public class UserController {
         if(!password.equals(cpassword)) {
             return "两次密码不统一";
         }
-        String teamName="undefinded";
-        String teamId="undefinded";
+        String teamName="";
+        String teamId="------";
         Integer isAdmin=0;
 
         userService.register(uid,username,password,email,teamName,teamId,isAdmin);
@@ -55,14 +59,35 @@ public class UserController {
         String name= (String) redisUtil.get(token);
         User user=userService.selectByName(name);
         String username=user.getUserName();
+        String uid=user.getUid();
         Team team=teamService.selectTeamByID(user.getTeamId());
         String teamname=team.getTeamName();
         Integer score=team.getScore();
         return "{" +
                 "\"username\":\""+username+"\"," +
                 "\"teamname\":\""+teamname+"\"," +
+                "\"uid\":\""+uid+"\","+
                 "\"score\":"+score+"" +
                 "}";
+    }
+
+    @PostMapping("/getDetailUserInfo")
+    public String getDetailUserInfo(@RequestParam("username") String userName) {
+        User user=userService.selectByName(userName);
+        String uid=user.getUid();
+        System.out.println(uid);
+        UserInfo userInfo = userInfoService.getUserInfo(uid);
+
+        String username=user.getUserName();
+        String email=user.getRealName();
+        String country=userInfo.getCountry();
+        String school=userInfo.getSchool();
+
+        return "{\"uid\":\""+uid+"\"," +
+                "\"username\":\""+username+"\"," +
+                "\"email\":\""+email+"\"," +
+                "\"country\":\""+country+"\"," +
+                "\"school\":\""+school+"\"}";
     }
 
 }

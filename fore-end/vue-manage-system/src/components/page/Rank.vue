@@ -56,7 +56,8 @@ import axios from 'axios';
     methods: {
       getDate(){
         var that=this;
-        axios.get('http://localhost:8080/api/rank/getRank').then(function(response) {
+        var token=localStorage.getItem('ms_token')
+        axios.get('http://localhost:8080/api/rank/getRank?token='+token).then(function(response) {
         that.tableData=response.data;
       });
       },

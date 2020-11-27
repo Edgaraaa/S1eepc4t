@@ -15,8 +15,8 @@
                         <span>{{this.tableDate.teamname}}</span>
                     </div>
                     <div class="user-info-list">
-                        上次登录时间：
-                        <span>2019-11-01</span>
+                        uid:
+                        <span>{{this.uids}}</span>
                     </div>
                 </el-card>
                 <el-card shadow="hover" style="height:330px;">
@@ -37,7 +37,7 @@
             </el-col>
             <el-col :span="16">
                 <el-row :gutter="20" class="mgb20">
-                    <el-col :span="8">
+                    <el-col :span="12">
                         <el-card shadow="hover" :body-style="{padding: '0px'}">
                             <div class="grid-content grid-con-1">
                                 <i class="el-icon-trophy grid-con-icon"></i>
@@ -48,24 +48,13 @@
                             </div>
                         </el-card>
                     </el-col>
-                    <el-col :span="8">
+                    <el-col :span="12">
                         <el-card shadow="hover" :body-style="{padding: '0px'}">
                             <div class="grid-content grid-con-2">
                                 <i class="el-icon-medal grid-con-icon"></i>
                                 <div class="grid-cont-right">
-                                    <div class="grid-num">321</div>
+                                    <div class="grid-num">{{this.rank}}</div>
                                     <div>当前排名</div>
-                                </div>
-                            </div>
-                        </el-card>
-                    </el-col>
-                    <el-col :span="8">
-                        <el-card shadow="hover" :body-style="{padding: '0px'}">
-                            <div class="grid-content grid-con-3">
-                                <i class="el-icon-key grid-con-icon"></i>
-                                <div class="grid-cont-right">
-                                    <div class="grid-num">5000</div>
-                                    <div>未解赛题</div>
                                 </div>
                             </div>
                         </el-card>
@@ -111,16 +100,14 @@ import axios from 'axios';
 export default {
     name: 'dashboard',
     created(){
-        let date = new FormData();
-        var that=this
-        date.append('token',GLOBAL.token);
-        axios.post('http://127.0.0.1:8080/testBoot/getUserInfo',date).then(function(response){
-            that.tableDate=response.data
-        });
+        this.getUser()
+        this.getRank()
     },
     data() {
         return {
             tableDate:null,
+            rank:1,
+            uids:'',
             todoList: [
                 {
                     title: '比赛平台前端已经在写了',
@@ -174,6 +161,28 @@ export default {
             this.data.forEach((item, index) => {
                 const date = new Date(now - (6 - index) * 86400000);
                 item.name = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+            });
+        },
+        getUser(){
+            let date = new FormData();
+            var that=this
+            let token=localStorage.getItem('ms_token');
+            date.append('token',token);
+            axios.post('http://127.0.0.1:8080/testBoot/getUserInfo?token='+token).then(function(response){
+                that.tableDate=response.data
+                localStorage.setItem('ms_uid', response.data["uid"]);
+                that.uids=response.data["uid"]
+            });
+        },
+        getRank(){
+            let date = new FormData();
+            var that=this
+            let token=localStorage.getItem('ms_token');
+            let uid = localStorage.getItem('ms_uid')
+            date.append('uid',uid)
+            axios.post('http://127.0.0.1:8080/api/rank/getTeamRank?token='+token,date).then(function(response){
+                console.log(response.data)
+                that.rank=response.data
             });
         }
         // handleListener() {

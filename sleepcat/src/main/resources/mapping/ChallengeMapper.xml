@@ -18,7 +18,7 @@
         select * from challenge where cid= #{cid}
     </select>
     <select id="selectByChallengeTitle" resultType="com.example.mybatistest.demo.entity.Challenge">
-        select * from challenge where title like #{title}
+        select * from challenge where titles like #{titles}
     </select>
 
     <insert id="addChallenge" parameterType="com.example.mybatistest.demo.entity.Challenge">
@@ -33,4 +33,15 @@
     <select id="selectByFlag" resultType="com.example.mybatistest.demo.entity.Challenge">
         select * from challenge where flag = #{flag} and cid = #{cid}
     </select>
+    <update id="updateByID" parameterType="com.example.mybatistest.demo.entity.Challenge">
+        update challenge
+        set titles=#{titles},
+        describution=#{describution},
+        flag=#{flag},
+        challengeType=#{challengeType},
+        mode=#{mode},
+        score=#{score},
+        deal=#{deal}
+        where cid = #{cid}
+    </update>
 </mapper>

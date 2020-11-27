@@ -19,6 +19,12 @@
     <el-form-item label="题目flag" prop="flag">
         <el-input v-model="ruleForm.flag"></el-input>
     </el-form-item>
+    <el-form-item label="赛题类型" prop="mode">
+        <el-select v-model="ruleForm.mode" placeholder="请选择题目类型">
+        <el-option label="static" value="static"></el-option>
+        <el-option label="random" value="random"></el-option>
+        </el-select>
+    </el-form-item>
     <el-form-item label="分值" prop="score" :rules="[
         {required: true,message: '分数必须设置'},
         {type: 'number',message: '必须设置为数字'}
@@ -42,7 +48,8 @@ import axios from 'axios';
           region: '',
           desc: '',
           score:123,
-          flag:''
+          flag:'',
+          mode:'',
         },
         rules: {
           name: [
@@ -61,11 +68,14 @@ import axios from 'axios';
       submitForm(formName) {
         var that = this;
         let date = new FormData();
-        date.append("title",that.ruleForm.name);
+        let token=localStorage.getItem('ms_token')
+        date.append("titles",that.ruleForm.name);
         date.append("describution",that.ruleForm.desc);
         date.append("flag",that.ruleForm.flag);
+        date.append("mode",that.ruleForm.mode)
+        date.append("score",that.ruleForm.score)
         date.append("challengeType",that.ruleForm.region);
-        axios.post('http://127.0.0.1:8080/api/challenge/addChallenge',date).then(function(response){
+        axios.post('http://127.0.0.1:8080/api/challenge/addChallenge?token='+token,date).then(function(response){
           console.log(response);
           if(response.data['status']==1) {
             that.$message.success("题目添加成功");

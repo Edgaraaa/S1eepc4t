@@ -32,10 +32,11 @@ import axios from 'axios';
         onSubmit() {
             var that=this;
             let date = new FormData();
+            let token = localStorage.getItem('ms_token');
             date.append('flag',that.formLabelAlign.flag);
             date.append('cid',that.formLabelAlign.id);
             date.append('tid',that.formLabelAlign.token)
-            axios.post('http://127.0.0.1:8080/api/challenge/submitFlag',date).then(function(response){
+            axios.post('http://127.0.0.1:8080/api/challenge/submitFlag?token='+token,date).then(function(response){
                 if(response.data=="回答正确") {
                     that.$message.success(response.data);
                 }else{

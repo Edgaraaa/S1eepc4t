@@ -58,7 +58,8 @@ export default {
                     GLOBAL.token=response.data["date"]
                     that.$message.success('登录成功');
                     localStorage.setItem('ms_username', that.param.username);
-                    that.$router.push('/');
+                    localStorage.setItem('ms_token', response.data["date"]);
+                    that.$router.push('/dashboard');
                 } else {
                     that.$message.error('请输入正确账号和密码');
                     console.log('error submit!!');

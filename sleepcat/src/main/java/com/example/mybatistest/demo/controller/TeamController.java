@@ -33,7 +33,7 @@ public class TeamController {
         return 1;
     }
     @PostMapping("/joinTeam")
-    public String joinTeam(@RequestParam("tid") String tid,@RequestParam("uid") String uid) {
+    public String joinTeam(@RequestParam("tid") String tid,@RequestParam("uid") String uid,@RequestParam("token") String token) {
         Team s=teamService.selectTeamByID(tid);
         if(s==null) {
             return "团队不存在";

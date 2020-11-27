@@ -18,7 +18,7 @@ public class Challenge {
     public void setCid(String cid) {
         this.cid=cid;
     }
-    public String getTitle(String titles) {
+    public String getTitle() {
         return titles;
     }
     public void setTitle(String titles) {
@@ -67,4 +67,6 @@ public class Challenge {
                 "\"challengeType\":\""+challengeType+"\"," +
                 "\"mode\":\""+mode+"\",\"score\":"+score+",\"deal\":"+deal+"}";
     }
- }
+
+
+}

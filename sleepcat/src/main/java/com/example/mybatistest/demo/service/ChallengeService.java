@@ -29,4 +29,5 @@ public class ChallengeService {
     public Challenge selectByFlag(String flag,String cid) {
         return challengeMapper.selectByFlag(flag,cid);
     }
+    public int updateByID(String cid,String titles,String describution,String flag,String challengeType,String mode,Integer score,Integer deal){ return challengeMapper.updateByID(cid,titles,describution,flag,challengeType,mode,score,deal);}
 }

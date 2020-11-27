@@ -41,7 +41,7 @@
                         <a href="https://github.com/lin-xin/vue-manage-system" target="_blank">
                             <el-dropdown-item>项目仓库</el-dropdown-item>
                         </a>
-                        <el-dropdown-item divided command="loginout">修改信息</el-dropdown-item>
+                        <el-dropdown-item divided command="userinfo">修改信息</el-dropdown-item>
                         <el-dropdown-item divided command="loginout">管理队伍</el-dropdown-item>
                         <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
                     </el-dropdown-menu>
@@ -80,6 +80,8 @@ export default {
                     that.$router.push('/login');
                 });
                 
+            }else if(command=='userinfo') {
+                that.$router.push('/userinfo');
             }
         },
         // 侧边栏折叠

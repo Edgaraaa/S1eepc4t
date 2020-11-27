@@ -49,6 +49,11 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "jointeam" */ '../components/page/CreateOrJoinTeam.vue'),
                     meta: { title: '加入战队或者创建战队' }
                 },
+                {
+                    path: '/userinfo',
+                    component: () => import(/* webpackChunkName: "userinfo" */ '../components/page/UserInfo.vue'),
+                    meta: { title: '个人信息' }
+                },
             ]
         },
         {

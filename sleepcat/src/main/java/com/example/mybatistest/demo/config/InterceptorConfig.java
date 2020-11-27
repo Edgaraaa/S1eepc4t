@@ -19,6 +19,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
     }
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor((HandlerInterceptor) loginInterceptor()).addPathPatterns("/**").excludePathPatterns("/login").excludePathPatterns("/logout").excludePathPatterns("/loginSys").excludePathPatterns("/static/**");
+        registry.addInterceptor((HandlerInterceptor) loginInterceptor()).addPathPatterns("/**").excludePathPatterns("/login").excludePathPatterns("/logout").excludePathPatterns("/loginSys").excludePathPatterns("/static/**")
+        .excludePathPatterns("/testBoot/register").excludePathPatterns("/api/challenge/getAllChallenge");
     }
 }
