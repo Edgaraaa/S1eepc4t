@@ -1,4 +1,7 @@
 # S1eepc4t
+
+<img src="./sleepcat.jpg" style="zoom: 7000%;" />
+
 > Dozer CTF Platform S1eepc4t
 
 ## 开发目的
