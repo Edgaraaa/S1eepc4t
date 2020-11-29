@@ -1,6 +1,6 @@
 # S1eepc4t
 
-<img src="./sleepcat.jpg" style="zoom: 7000%;" />
+![](./sleepcat.png)
 
 > Dozer CTF Platform S1eepc4t
 
